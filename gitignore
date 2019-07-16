@@ -1,0 +1,13 @@
+.vs/
+**.vscode/
+**.csproj.user
+**/bin/
+**/obj/
+**/Applications/**/Modulars/
+**/Properties/PublishProfiles/
+**/node_modules/
+**.log
+**logs**
+**/Uploads/**
+**/Applications/**/Images**
+**/Applications/**/ExtensionFolder**
