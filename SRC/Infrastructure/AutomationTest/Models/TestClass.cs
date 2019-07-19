@@ -23,11 +23,23 @@ namespace AutomationTest.Models
                     throw new Exception();
                 }
             }
-            else if (!input.Equals(output))
+            else 
             {
-                Test.Error($"Assert failed with value {input} and {output}");
-                throw new Exception();
+                if (!input.Equals(output))
+                {
+                    Test.Error($"Assert failed with value {input} and {output}");
+                    AddScreenCaptureFromPath();
+
+                    throw new Exception();
+                }
+                else
+                {
+                    PassTest($"Assert success with value {input} and {output}");
+                }
+                
             }
+            
+
         }
 
         public void AssertNot<T>(T input, T output)
@@ -35,7 +47,7 @@ namespace AutomationTest.Models
             if(input.Equals(output))
             {
                 Test.Error($"AssertNot failed with value {input} and {output}");
-                throw new Exception();
+                //throw new Exception();
             }
         }
 
