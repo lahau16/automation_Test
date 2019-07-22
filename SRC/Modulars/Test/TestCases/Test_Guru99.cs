@@ -184,9 +184,11 @@ namespace Test.TestCases
             Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyAcount"])).Click();
 
             Infor("3.Login in application using previously created credential");
-            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.LoginEmail"])).SendKeys(TestKeyWords["Guru.Xpath.LoginEmailData"]);
-            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.LoginPass"])).SendKeys(TestKeyWords["Guru.Xpath.LoginPassData"]);
-            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.MyAcount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginEmail"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginEmailData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginPass"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginPassData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginSubmit"])).Click();
+            Thread.Sleep(3000);
+            //Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Acount"])).Click();
 
             Infor("4.Click on MY WISHLIST link");
             Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.Acount"])).Click();
@@ -196,64 +198,222 @@ namespace Test.TestCases
             Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.AddToCartWhistlist"])).Click();
 
             Infor("6.Enter general shipping country, state / province and zip for the shipping cost estimate");
-            new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Country"]))).SelectByValue("VietNam");
+            new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Country"]))).SelectByText(TestKeyWords["Guru.Xpath.CountryData"]);
+            Thread.Sleep(2000);
             Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Region"])).SendKeys(TestKeyWords["Guru.Xpath.RegionData"]);
+            Thread.Sleep(2000);
             Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PostCode"])).SendKeys(TestKeyWords["Guru.Xpath.PostCodeData"]);
 
             Infor("7.Click Estimate");
             Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Estimate"])).Click();
-
+            /*
             Infor("8.Verify Shipping cost generated");
-
+            string flatRate = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.FlatRate"])).Text;
+            Assert(flatRate.Trim(), TestKeyWords["Guru.Xpath.FlatRateData"].Trim());
+            string fpriceFix = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.FlatRate"])).Text;
+            Assert(fpriceFix.Trim(), TestKeyWords["Guru.Xpath.FixPriceData"].Trim());
+            */
             Infor("9.Select Shipping Cost, Update Total");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.CheckboxPrice"])).Click();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.UpdateTotal"])).Click();
+
             Infor("10.Verify shipping cost is added to total");
+            string vflatRatePrice = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.vFlatRatePrice"])).Text;
+            //Assert(vflatRatePrice.Trim(), TestKeyWords["Guru.Xpath.vFlatRatePriceData"].Trim());
+            
             Infor("11.Click 'Proceed to Checkout'");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Checkout"])).Click();
+
             Infor("12a.Enter Billing Information, and click Continue");
+            SelectElement BtnAdress = new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.NewAddress"])));
+            BtnAdress.SelectByIndex(2);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Company"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Company"])).SendKeys(TestKeyWords["Guru.Xpath.CompanyData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Address"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Address"])).SendKeys(TestKeyWords["Guru.Xpath.AddressData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.AddressStreet"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.AddressStreet"])).SendKeys(TestKeyWords["Guru.Xpath.AddressStreetData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.City"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.City"])).SendKeys(TestKeyWords["Guru.Xpath.CityData"]);
+            Thread.Sleep(2000);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"])).SendKeys(TestKeyWords["Guru.Xpath.RegionBillingData"]);
+            //new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"]))).SelectByText(TestKeyWords["Guru.Xpath.RegionBillingData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PostCodeBilling"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PostCodeBilling"])).SendKeys(TestKeyWords["Guru.Xpath.PostCodeBillingData"]);
+            new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.CountryBilling"]))).SelectByText(TestKeyWords["Guru.Xpath.CountryBillingData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Telephone"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Telephone"])).SendKeys(TestKeyWords["Guru.Xpath.TelephoneData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Fax"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Fax"])).SendKeys(TestKeyWords["Guru.Xpath.FaxData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Checkbox1"])).Click();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ContinueButton"])).Click();
+            Thread.Sleep(3000);
+
             Infor("12b.Enter Shipping Information, and click Continue");
+            SelectElement BtnAdressship = new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipAddress"])));
+            BtnAdressship.SelectByIndex(2);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipFirstName"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipFirstName"])).SendKeys(TestKeyWords["Guru.Xpath.ShipFirstNameData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipMiddleName"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipMiddleName"])).SendKeys(TestKeyWords["Guru.Xpath.ShipMiddleNameData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipLastName"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipLastName"])).SendKeys(TestKeyWords["Guru.Xpath.ShipLastNameData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCompany"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCompany"])).SendKeys(TestKeyWords["Guru.Xpath.ShipCompanyData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipAdress1"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipAdress1"])).SendKeys(TestKeyWords["Guru.Xpath.ShipAdress1Data"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipAdress2"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipAdress2"])).SendKeys(TestKeyWords["Guru.Xpath.ShipAdress2Data"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCity"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCity"])).SendKeys(TestKeyWords["Guru.Xpath.ShipCityData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipDistrict"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipDistrict"])).SendKeys(TestKeyWords["Guru.Xpath.ShipDistrictData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipPostcode"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipPostcode"])).SendKeys(TestKeyWords["Guru.Xpath.ShipPostcodeData"]);
+            new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCountry"]))).SelectByText(TestKeyWords["Guru.Xpath.ShipCountryData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipTelephone"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipTelephone"])).SendKeys(TestKeyWords["Guru.Xpath.ShipTelephoneData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipCheckbox"])).Click();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipButton"])).Click();
+            Thread.Sleep(3000);
             Infor("13.In Shipping Method, Click Continue");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipButtonMethod"])).Click();
+            Thread.Sleep(3000);
+
             Infor("14.In Payment Information select 'Check/Money Order' radio button.Click Continue");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipMethodCheckMo"])).Click();
+            Thread.Sleep(3000);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipButtonMethodPayment"])).Click();
+            Thread.Sleep(3000);
+
             Infor("15.Click 'PLACE ORDER' button");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ShipPlaceOrder"])).Click();
+            Thread.Sleep(3000);
+
             Infor("16.Verify Oder is generated.Note the order number");
+            PassTest("Ra order rồi nhé");
+            AddScreenCaptureFromPath();
 
             //NOTE: PROCEED TO CHECKOUT (step 6 ) was taken out, so as to allow the Estimate button step to get processed. 
             //Rest of the steps renumbered accordingly.
         }
         public void Testcase07a()
         {
-            Infor("1. Go to http://live.guru99.com/");
-            Infor("2.Click on My Account link");
+            Infor("1.Go to http://live.guru99.com/");
+            Driver = new ChromeDriver(Directory.GetCurrentDirectory())
+            {
+                Url = TestCommonKeyWords["Guru.URL"]
+            };
+            Driver.Manage().Window.Maximize();
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Infor("2.Click on my account link");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.Acount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyAcount"])).Click();
+            Thread.Sleep(3000);
+
             Infor("3.Login in application using previously created credential");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginEmail"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginEmailData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginPass"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginPassData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginSubmit"])).Click();
+            Thread.Sleep(3000);
+
             Infor("4.Click on 'My Orders'");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.Acount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyAcount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyOrder"])).Click();
+            string StatusRecentOrder = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.StatusP.RecentOrder"])).Text;
+
             Infor("5.Click on 'View Order'");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ViewOrder"])).Click();
+
             //* **note: After steps 4 and 5, step 6 'RECENT ORDERS' was not displayed. 
             Infor("6.Verify the previously created order is displayed in 'RECENT ORDERS' table and status is Pending");
+            string StatusViewOrder = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.StatusP.ViewOrder"])).Text;
+            Assert(StatusRecentOrder, StatusViewOrder);
+
             Infor("7.Click on 'Print Order' link");
-            // * **note: the link was not found. 
-            Infor("8.Click 'Change...' link and a popup will be opened as 'Select a destination', select 'Save as PDF' link.");
-            //* **unable to execute this step, due to issue with step 8 issue.
-            Infor("9.Click on 'Save' button and save the file in some location.");
-            //***unable to execute this step, due to steps 8 and 9 issues.
-            Infor("10.Verify Order is saved as PDF");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PrintOrder"])).Click();
         }
-        public void Testcase07b()
+        public void Testcase08()
         {
-            Infor("1. Go to http://live.guru99.com/");
-            Infor("2. Click on My Account link");
-            Infor("3. Login in application using previously created credential ");
-            Infor("4. Click on 'My Orders'");
-            Infor("5. Click on 'View Order'");
-            //*** when steps 4 and 5 are executed, step 6 RECENT ORDERS was not displayed
-            Infor("6. Verify the previously created order is displayed in 'RECENT ORDERS' table and status is Pending");
-            Infor("7. Click on 'Print Order' link");
-            //*** note: the Change ... link was not found.
-            Infor("8. Click 'Change...' link and a popup will be opened as 'Select a destination' , select 'Save as PDF' link.");
-            //*** unable to execute this step, due to issue with step 8 issue
-            Infor("9. Click on 'Save' button and save the file in some location.");
-            //***unable to execute this step, due to steps 8 and 9 issues.
-            Infor("10. Verify Order is saved as PDF");
-            /*Expected results:
-            1. Previously created order is displayed in 'RECENT ORDERS' table and status is Pending.
-            2. Order is saved as PDF.*/
+            Infor("1.Go to http://live.guru99.com/");
+            Driver = new ChromeDriver(Directory.GetCurrentDirectory())
+            {
+                Url = TestCommonKeyWords["Guru.URL"]
+            };
+            Driver.Manage().Window.Maximize();
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Infor("2.Click on my account link");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.Acount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyAcount"])).Click();
+            Thread.Sleep(3000);
+
+            Infor("3.Login in application using previously created credential");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginEmail"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginEmailData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginPass"])).SendKeys(TestCommonKeyWords["Guru.Xpath.LoginPassData"]);
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.LoginSubmit"])).Click();
+            Thread.Sleep(3000);
+
+            Infor("4.Click on 'My Orders'");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.Acount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyAcount"])).Click();
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Guru.Xpath.MyOrder"])).Click();
+
+            Infor("5. Click on 'REORDER' link , change QTY & click Update");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Reorder"])).Click();
+            Thread.Sleep(2000);
+            string OldPrice = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.OldPrice"])).Text;
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Quanlity"])).Clear();
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Quanlity"])).SendKeys(TestKeyWords["Guru.Xpath.QuanlityData"]);
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Update"])).Click();
+            string NewPrice = Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.OldPrice"])).Text;
+            
+            Infor("6. Verify Grand Total is changed");
+            AssertNot(NewPrice, OldPrice);
+
+            Infor("7. Complete Billing & Shipping Information");
+            Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.BtnCheckOut"])).Click();
+            SelectElement BtnAdress = new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.NewAddress"])));
+            if (BtnAdress.Options.Count == 1)
+            {
+                BtnAdress.SelectByIndex(0);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Company"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Company"])).SendKeys(TestKeyWords["Guru.Xpath.CompanyData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Address"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Address"])).SendKeys(TestKeyWords["Guru.Xpath.AddressData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.AddressStreet"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.AddressStreet"])).SendKeys(TestKeyWords["Guru.Xpath.AddressStreetData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.City"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.City"])).SendKeys(TestKeyWords["Guru.Xpath.CityData"]);
+                Thread.Sleep(2000);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"])).SendKeys(TestKeyWords["Guru.Xpath.RegionBillingData"]);
+                //new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.RegionBilling"]))).SelectByText(TestKeyWords["Guru.Xpath.RegionBillingData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PostCodeBilling"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.PostCodeBilling"])).SendKeys(TestKeyWords["Guru.Xpath.PostCodeBillingData"]);
+                new SelectElement(Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.CountryBilling"]))).SelectByText(TestKeyWords["Guru.Xpath.CountryBillingData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Telephone"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Telephone"])).SendKeys(TestKeyWords["Guru.Xpath.TelephoneData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Fax"])).Clear();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Fax"])).SendKeys(TestKeyWords["Guru.Xpath.FaxData"]);
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.Checkbox1"])).Click();
+                Driver.FindElement(By.XPath(TestKeyWords["Guru.Xpath.ContinueButton"])).Click();
+                Thread.Sleep(3000);
+            }
+            else
+            {
+                BtnAdress.SelectByIndex(0);
+            }
+
+
+            /*1. Go to http://live.guru99.com/
+2. Click on my account link
+3. Login in application using previously created credential
+4. Click on 'REORDER' link , change QTY & click Update
+5. Verify Grand Total is changed
+6. Complete Billing & Shipping Information
+7. Verify order is generated and note the order number.*/
 
         }
     }

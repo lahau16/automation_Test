@@ -19,22 +19,22 @@ namespace AutomationTest.Models
             {
                 if(output != null)
                 {
-                    Test.Error($"Assert failed with value {input} and {output}");
-                    throw new Exception();
+                    Test.Error($"Assert failed with value '{input}' and '{output}'");
+                    throw new Exception($"Assert failed with value '{input}' # '{output}'");
                 }
             }
             else 
             {
                 if (!input.Equals(output))
                 {
-                    Test.Error($"Assert failed with value {input} and {output}");
+                    Test.Error($"Assert failed with value '{input}' and '{output}'");
                     AddScreenCaptureFromPath();
 
-                    throw new Exception();
+                    throw new Exception($"Assert failed with value '{input}' # '{output}'");
                 }
                 else
                 {
-                    PassTest($"Assert success with value {input} and {output}");
+                    PassTest($"Assert success with value '{input}' and '{output}'");
                 }
                 
             }
@@ -44,10 +44,17 @@ namespace AutomationTest.Models
 
         public void AssertNot<T>(T input, T output)
         {
-            if(input.Equals(output))
+            if (input.Equals(output))
             {
-                Test.Error($"AssertNot failed with value {input} and {output}");
-                //throw new Exception();
+                Test.Error($"AssertNot failed with value '{input}' and '{output}'");
+                AddScreenCaptureFromPath();
+                throw new Exception($"Assert failed with value '{input}' # '{output}'");
+
+            }
+            else
+            {
+                PassTest($"AssertNot success with value '{input}' and '{output}'");
+                AddScreenCaptureFromPath();
             }
         }
 

@@ -15,15 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationTest", "SRC\Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7B749C56-CE77-47DB-A1D8-285AA7220BC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Application", "SRC\Applications\Test.Application\Test.Application.csproj", "{A9C737A8-4572-4B09-B91C-F91DF5ABB8E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Application", "SRC\Applications\Test.Application\Test.Application.csproj", "{A9C737A8-4572-4B09-B91C-F91DF5ABB8E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentations", "Presentations", "{5CC94B49-6382-49E8-81B4-5153D7C140A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.UI", "SRC\Presentations\Test.UI\Test.UI.csproj", "{D4D33404-C367-4F70-87C3-DA0B63B2F8B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.UI", "SRC\Presentations\Test.UI\Test.UI.csproj", "{D4D33404-C367-4F70-87C3-DA0B63B2F8B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modulars", "Modulars", "{C17305D2-E433-41AA-BF7D-1E23D82B9C2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "SRC\Modulars\Test\Test.csproj", "{D65E9873-E5B9-4746-BBC5-972D2A508FD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "SRC\Modulars\Test\Test.csproj", "{D65E9873-E5B9-4746-BBC5-972D2A508FD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
