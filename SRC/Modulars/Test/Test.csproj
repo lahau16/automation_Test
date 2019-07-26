@@ -9,4 +9,10 @@
     <ProjectReference Include="..\..\Presentations\Test.UI\Test.UI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Interop.AutoItX3Lib">
+      <HintPath>..\..\Infrastructure\Common\obj\Debug\netcoreapp2.2\Interop.AutoItX3Lib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
