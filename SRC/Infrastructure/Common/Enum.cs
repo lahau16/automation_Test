@@ -11,4 +11,10 @@ namespace Common
         Infor,
         Error
     }
+    public enum DriverType
+    {
+        ChromeDriver = 1,
+        FireFoxDriver = 2,
+        IEDriver = 3
+    }
 }

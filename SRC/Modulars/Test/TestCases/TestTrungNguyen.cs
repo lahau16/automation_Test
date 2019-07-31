@@ -14,10 +14,7 @@ namespace Admin.TestCases
     {
         public void Login()
         {
-            Driver = new ChromeDriver(Directory.GetCurrentDirectory())
-            {
-                Url = "http://27.71.232.114:40002"
-            };
+            Driver.Navigate().GoToUrl("http://27.71.232.114:40002/");
             Thread.Sleep(3000);
 
             //Login

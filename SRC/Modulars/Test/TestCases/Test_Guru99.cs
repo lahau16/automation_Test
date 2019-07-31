@@ -8,6 +8,8 @@ using System.IO;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System.Linq;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 
 namespace Test.TestCases
 {
@@ -20,6 +22,7 @@ namespace Test.TestCases
             {
                 Url = TestCommonKeyWords["Guru.URL"]
             };
+            
             Infor("Maximize trình duyệt");
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);

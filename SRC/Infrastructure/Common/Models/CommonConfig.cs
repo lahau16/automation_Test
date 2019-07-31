@@ -12,5 +12,8 @@ namespace Common.Models
         public string Version { set; get; }
         public string OutputTestFile { set; get; }
         public string ReportPath { set; get; }
+        public string Type { set; get; }
+
+        public DriverType DriverTypeEnum => (DriverType)Enum.Parse(typeof(DriverType), Type);
     }
 }

@@ -1,4 +1,5 @@
-﻿using AventStack.ExtentReports;
+﻿using AutomationTest.Helpers;
+using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using Common;
 using Common.Helpers;
@@ -42,7 +43,7 @@ namespace AutomationTest.Models
             TestClass.extent = new AventStack.ExtentReports.ExtentReports();
             TestClass.extent.AttachReporter(TestClass.htmlReporter);
 
-            foreach (var item in typeof(CommonConfig).GetProperties())
+            foreach (var item in typeof(CommonConfig).GetProperties().Where(p => p.GetType() == typeof(string)))
             {
                 TestClass.extent.AddSystemInfo(item.Name, ((string)item.GetValue(config.Config))??"");
             }
@@ -68,6 +69,7 @@ namespace AutomationTest.Models
                         if (methodTest != null)
                         {
                             var instance = Activator.CreateInstance(t);
+
                             var test = t.GetProperty("Test");
                             var driverPro = t.GetProperty("Driver");
                             var versionPro = t.GetProperty("DataVersion");
@@ -77,13 +79,15 @@ namespace AutomationTest.Models
                                 testNamePro.SetValue(instance, testCase.Name);
                                 versionPro.SetValue(instance, testCase.DataVerion);
                                 test.SetValue(instance, TestClass.extent.CreateTest(testCase.Name, testCase.Description));
+                                var driver = DriverHelper.Create(GlobalConfig.Instant.Config.DriverTypeEnum);
+                                driverPro.SetValue(instance, driver);
 
                                 methodTest.Invoke(instance, null);
-                                var driver = driverPro.GetValue(instance);
+                                driver = (IWebDriver)driverPro.GetValue(instance);
                                 if (driver != null)
                                 {
-                                    ((IWebDriver)driver).Close();
-                                    ((IWebDriver)driver).Quit();
+                                    driver.Close();
+                                    driver.Quit();
                                 }
                                 CommonHelper.WriteConsole($"Test Name {testCase.Name} has been successfull!");
                                 continue;
