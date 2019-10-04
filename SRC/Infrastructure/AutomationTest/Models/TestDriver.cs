@@ -17,13 +17,20 @@ namespace AutomationTest.Models
 {
     public class TestDriver<T>  where T : StartupClass
     {
-        public void Run()
+        public void Run(string inputFile)
         {
             var startupInstance = Activator.CreateInstance(typeof(T));
             var startupMethod = typeof(T).GetMethod("Configures");
             startupMethod.Invoke(startupInstance, null);
 
             CommonHelper.WriteConsole("Reading Config...");
+
+            if(!string.IsNullOrEmpty(inputFile))
+            {
+                Constant.PATH_CONFIG = inputFile;
+            }
+
+            CommonHelper.WriteConsole($"Config file: {Constant.PATH_CONFIG}");
 
             //Read Config
             GlobalConfig config = null;

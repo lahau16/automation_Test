@@ -8,7 +8,8 @@ namespace Test.Application
     {
         static void Main(string[] args)
         {
-            (new TestDriver<Startup>()).Run();
+            string inputFileName = args.Length > 0 ? args[0]: "";
+            (new TestDriver<Startup>()).Run(inputFileName);
         }
     }
 }

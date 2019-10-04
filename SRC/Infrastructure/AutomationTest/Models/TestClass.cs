@@ -2,6 +2,7 @@
 using AventStack.ExtentReports.Reporter;
 using Common;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -112,5 +113,35 @@ namespace AutomationTest.Models
         {
             Test.Warning(message);
         }
+
+        #region Selenium Support
+        public void GotoElement(By by)
+        {
+            var element = Driver.FindElement(by);
+            Actions actions = new Actions(Driver);
+            actions.MoveToElement(element);
+            actions.Perform();
+        }
+        public bool IsExist(By by)
+        {
+            try
+            {
+                Driver.FindElement(by);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public void TryAssertWithCatch(Action callback)
+        {
+            try
+            {
+                callback();
+            }
+            catch { }
+        }
+        #endregion
     }
 }

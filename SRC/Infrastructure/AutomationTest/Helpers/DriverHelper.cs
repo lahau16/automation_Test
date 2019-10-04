@@ -16,7 +16,9 @@ namespace AutomationTest.Helpers
             switch(type)
             {
                 case DriverType.ChromeDriver:
-                    return new ChromeDriver(Directory.GetCurrentDirectory());
+                    var chrome = new ChromeDriver(Directory.GetCurrentDirectory());
+                    chrome.Manage().Window.Maximize();
+                    return chrome;
                 case DriverType.FireFoxDriver:
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     FirefoxOptions opt = new FirefoxOptions
