@@ -11,7 +11,7 @@ namespace Test.TestCases
         {
             var username = "";
             var pasword = "";
-            var baseurl = "";
+            //var baseurl = "";
             var route = "";
             dynamic dataLogin = new ExpandoObject();
             dataLogin.userName = username;

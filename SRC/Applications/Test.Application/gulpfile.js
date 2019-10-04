@@ -1,4 +1,4 @@
-﻿/// <binding AfterBuild='copy-modules' ProjectOpened='copy-modules' />
+/// <binding AfterBuild='copy-modules' />
 // <binding AfterBuild='copy-modules' />
 "use strict";
 
@@ -23,7 +23,8 @@ var paths = {
         moduleBin: "/bin/",
         modules: "../../Modulars/",
         interfaces: "../../Presentations/",
-        extensions: "../../Extensions/"
+        extensions: "../../Extensions/",
+        infra: "../../Infrastructure/"
     },
     destination: {
         wwwroot: "./wwwroot/",
@@ -70,6 +71,9 @@ gulp.task('copy-static', function () {
         gulp.src(paths.source.modules + listModules[i] + '/wwwroot/**/*.*')
             .pipe(gulp.dest(paths.destination.wwwroot));
     }
+
+    gulp.src(paths.source.infra + "AutomationTest" + paths.source.moduleBin + paths.config.buildEnvairament + '/' + paths.config.dotnetcoreVersion + '/*.exe')
+            .pipe(gulp.dest(paths.destination.moduleRun));
 });
 
 gulp.task('copy-modules', ['clean-module'], function () {

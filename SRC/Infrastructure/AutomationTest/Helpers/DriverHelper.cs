@@ -29,8 +29,9 @@ namespace AutomationTest.Helpers
                     InternetExplorerOptions opts = new InternetExplorerOptions()
                     {
                         IgnoreZoomLevel = true,
-                        PageLoadStrategy = InternetExplorerPageLoadStrategy.Normal,
-                        IntroduceInstabilityByIgnoringProtectedModeSettings = true
+                        PageLoadStrategy = PageLoadStrategy.Normal,
+                        IntroduceInstabilityByIgnoringProtectedModeSettings = true,
+                        EnsureCleanSession = true
                     };
                     var ieDriver = new InternetExplorerDriver(Directory.GetCurrentDirectory(), opts);
                     return ieDriver;
