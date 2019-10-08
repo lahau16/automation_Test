@@ -24,6 +24,11 @@ namespace Common.Helpers
                     Console.Write("infor");
                     Console.ResetColor();
                     break;
+                case ConsoleType.Warnning:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("warrning");
+                    Console.ResetColor();
+                    break;
                 case ConsoleType.Error:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("error");

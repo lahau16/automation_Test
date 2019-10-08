@@ -9,6 +9,7 @@ namespace Common
     public enum ConsoleType
     {
         Infor,
+        Warnning,
         Error
     }
     public enum DriverType

@@ -1,4 +1,4 @@
-﻿using AutoItX3Lib;
+﻿//using AutoItX3Lib;
 using AutomationTest.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -70,23 +70,23 @@ namespace Test.TestCases
             var avatar = Driver.FindElement(By.XPath(TestKeyWords["Newstar.UpdateAvatar.Avatar"]));
             avatar.Click();
             Thread.Sleep(10000);
-            AutoItX3 autoIT = new AutoItX3();
+            //AutoItX3 autoIT = new AutoItX3();
 
-            // đưa title của cửa sổ File upload vào chuỗi. 
-            // Cửa sổ hiện ra có thể có tiêu đề là File Upload hoặc Tải lên một tập tin
-            // lấy ra cửa sổ active có tiêu đề như dưới
-            autoIT.WinActivate("Open");
+            //// đưa title của cửa sổ File upload vào chuỗi. 
+            //// Cửa sổ hiện ra có thể có tiêu đề là File Upload hoặc Tải lên một tập tin
+            //// lấy ra cửa sổ active có tiêu đề như dưới
+            //autoIT.WinActivate("Open");
 
-            // file data nằm trong thư mục debug
-            // gửi link vào ô đường dẫn
-            autoIT.Send(TestKeyWords["Newstar.UpdateAvatar.AvatarFile"]);
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            // gửi phím enter sau khi truyền link vào
-            autoIT.Send("{ENTER}");
-            Thread.Sleep(5000);
-            AddScreenCaptureFromPath();
-            Thread.Sleep(3000);
-            Logout();
+            //// file data nằm trong thư mục debug
+            //// gửi link vào ô đường dẫn
+            //autoIT.Send(TestKeyWords["Newstar.UpdateAvatar.AvatarFile"]);
+            //Thread.Sleep(TimeSpan.FromSeconds(1));
+            //// gửi phím enter sau khi truyền link vào
+            //autoIT.Send("{ENTER}");
+            //Thread.Sleep(5000);
+            //AddScreenCaptureFromPath();
+            //Thread.Sleep(3000);
+            //Logout();
 
         }
     }

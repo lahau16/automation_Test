@@ -9,7 +9,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using AutoItX3Lib;
+using AutomationTest.Extensions;
+using System.Collections.Generic;
+//using AutoItX3Lib;
 
 namespace Admin.TestCases
 {
@@ -26,7 +28,7 @@ namespace Admin.TestCases
             Infor("Click button login");
             Driver.FindElement(By.XPath(TestCommonKeyWords["Xpath.Button"])).Click();
             //Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             Assert(Driver.Url.Trim(), TestCommonKeyWords["Assert.Link"].Trim());
             Thread.Sleep(1000);
 
@@ -40,41 +42,29 @@ namespace Admin.TestCases
             Driver.FindElement(By.XPath(TestCommonKeyWords["Logout.Action2"])).Click();
             Assert(Driver.Url.Trim(), TestCommonKeyWords["URL"].Trim());
         }
-        public void Items()
+        public void Add_item()
         {
             Login();
-            Infor("Select item ");
-            Driver.FindElement(By.XPath(TestKeyWords["MasterDataSetting"])).Click();
-            GotoElement(By.XPath(TestKeyWords["Items"]));
-            Driver.FindElement(By.XPath(TestKeyWords["Items"])).Click();
 
-            if (IsExist(By.CssSelector(TestKeyWords["Theme"])))
+            Infor("Select item ");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["MasterDataSetting"])).Click();
+            Driver.GotoElement(By.XPath(TestCommonKeyWords["Items"]));
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Items"])).Click();
+
+            if (Driver.IsExist(By.CssSelector(TestCommonKeyWords["Theme"])))
             {
-                Driver.FindElement(By.CssSelector(TestKeyWords["Theme"])).Click();
+                Driver.FindElement(By.CssSelector(TestCommonKeyWords["Theme"])).Click();
             }
+
+
             Driver.FindElement(By.XPath(TestKeyWords["Button.Add"])).Click();
-            Thread.Sleep(5000);
+            Driver.Wait(5000);
 
             Infor("1. Tab general information ");
             Driver.FindElement(By.XPath(TestKeyWords["Xpath.Switchbutton.Active"])).Click();
 
             Infor("1.1. Update avartar");
-            var avatar = Driver.FindElement(By.XPath(TestKeyWords["Xpath.Avartar"]));
-            avatar.Click();
-            Thread.Sleep(5000);
-            AutoItX3 autoIT = new AutoItX3();
-
-            // đưa title của cửa sổ File upload vào chuỗi. 
-            // Cửa sổ hiện ra có thể có tiêu đề là File Upload hoặc Tải lên một tập tin
-            // lấy ra cửa sổ active có tiêu đề như dưới
-            autoIT.WinActivate("Open");
-
-            // file data nằm trong thư mục debug
-            // gửi link vào ô đường dẫn
-            autoIT.Send(TestKeyWords["Xpath.Avartar.File"]);
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            // gửi phím enter sau khi truyền link vào
-            autoIT.Send("{ENTER}");
+            Driver.OpenFile(By.XPath(TestKeyWords["Xpath.Avartar"]), TestKeyWords["Xpath.Avartar.File"]);
             Thread.Sleep(5000);
             AddScreenCaptureFromPath();
 
@@ -149,12 +139,12 @@ namespace Admin.TestCases
             Thread.Sleep(1000);
 
             Infor("Click submit");
-            GotoElement(By.XPath(TestKeyWords["Xpath.Button.Save"]));
+            Driver.GotoElement(By.XPath(TestKeyWords["Xpath.Button.Save"]));
             Driver.FindElement(By.XPath(TestKeyWords["Xpath.Button.Save"])).Click();
             Infor("Result");
             Thread.Sleep(1000);
             CommonHelper.WriteConsole(Driver.FindElement(By.CssSelector(TestCommonKeyWords["Class.Toast"])).Text);
-            Assert((Driver.FindElement(By.CssSelector(TestCommonKeyWords["Class.Toast"])).Text), "Add thành công");
+            Assert((Driver.FindElement(By.CssSelector(TestCommonKeyWords["Class.Toast"])).Text), "Common.AddSuccess");
             Assert(Driver.Url.Trim(), TestKeyWords["Assert.Link"].Trim());
             Thread.Sleep(2000);
             var searchbox = Driver.FindElement(By.XPath(TestKeyWords["Xpath.List.Search"]));
@@ -163,10 +153,56 @@ namespace Admin.TestCases
             Thread.Sleep(2000);
             AddScreenCaptureFromPath();
 
+            // Đếm số lượng dòng trong trang hiện tại
+            //*[@id="app"]/div[1]/main/div/div/div[2]/div[2]/div[3]/table/tbody/tr
+            //Infor("Count record: " + Driver.ElementCount(By.XPath("*[@id=\"app\"]/div[1]/main/div/div/div[2]/div[2]/div[3]/table/tbody/tr")));
+    }
+        public void List_item()
+        {
+            Login();
 
+            Infor("Select item ");
+            Driver.FindElement(By.XPath(TestCommonKeyWords["MasterDataSetting"])).Click();
+            Driver.GotoElement(By.XPath(TestCommonKeyWords["Items"]));
+            Driver.FindElement(By.XPath(TestCommonKeyWords["Items"])).Click();
+            if (Driver.IsExist(By.CssSelector(TestCommonKeyWords["Theme"])))
+            {
+                Driver.FindElement(By.CssSelector(TestCommonKeyWords["Theme"])).Click();
+            }
 
+            // check paging
+            var result = Driver.GetTableInformation(10);
+            Infor("TotalPages: " + result.TotalPages);
+            Infor("TotalRecords: " + result.TotalRecords);
+            //Infor("Check function search");
+            //var searchbox = Driver.FindElement(By.XPath(TestKeyWords["Xpath.List.Search"]));
+            //searchbox.SendKeys(TestKeyWords["Data.List.Search_1"]);
+            //Infor($"Search chính xác dữ liệu" + searchbox.Text);
+            //Driver.Wait(3000);
+            //AddScreenCaptureFromPath();
+            //searchbox.Clear();
 
-            // Verify
+            //searchbox.SendKeys(TestKeyWords["Data.List.Search_2"]);
+            //Infor($"Search gần đúng" + searchbox.Text);
+            //Driver.Wait(3000);
+            //AddScreenCaptureFromPath();
+            //searchbox.Clear();
+
+            //searchbox.SendKeys(TestKeyWords["Data.List.Search_3"]);
+            //Infor($"Search không ra kết quả" + searchbox.Text);
+            //Driver.Wait(3000);
+            //AddScreenCaptureFromPath();
+            //searchbox.Clear();
+
+            //Infor("Paging");
+            //if (Driver.IsExist(By.CssSelector(TestKeyWords["CssSelector.Paging"])))
+            //{
+            //    // Kiểm tra số dòng dữ liệu trên 1 trang và tính ra sẽ có bao nhiêu trang. 
+            //    int countPaging = Driver.ElementCount(By.XPath(TestKeyWords["Xpath.Paging"]));
+            //    Infor($"So page:" + countPaging);
+
+            //}
+
 
 
         }

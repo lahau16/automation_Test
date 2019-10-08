@@ -115,54 +115,5 @@ namespace AutomationTest.Models
         {
             Test.Warning(message);
         }
-
-        #region Selenium Support
-        public void GotoElement(By by)
-        {
-            var element = Driver.FindElement(by);
-            Actions actions = new Actions(Driver);
-            actions.MoveToElement(element);
-            actions.Perform();
-        }
-        public bool IsExist(By by)
-        {
-            try
-            {
-                Driver.FindElement(by);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public void TryAssertWithCatch(Action callback)
-        {
-            try
-            {
-                callback();
-            }
-            catch { }
-        }
-       /* public void Uploadfile()
-        {
-            Thread.Sleep(5000);
-            AutoItX3 autoIT = new AutoItX3();
-
-            // đưa title của cửa sổ File upload vào chuỗi. 
-            // Cửa sổ hiện ra có thể có tiêu đề là File Upload hoặc Tải lên một tập tin
-            // lấy ra cửa sổ active có tiêu đề như dưới
-            autoIT.WinActivate("Open");
-
-            // file data nằm trong thư mục debug
-            // gửi link vào ô đường dẫn
-            autoIT.Send(TestKeyWords["Xpath.Avartar.File"]);
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            // gửi phím enter sau khi truyền link vào
-            autoIT.Send("{ENTER}");
-            Thread.Sleep(5000);
-            AddScreenCaptureFromPath();
-        }*/
-        #endregion
     }
 }
